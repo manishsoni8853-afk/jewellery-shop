@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MKRK Jewellery — Shop</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #e9ecf1;
+      --muted: #a7b0be;
+      --accent: #d4af37; /* gold */
+      --accent-2: #e6c75e;
+      --ring: #f5f3c4;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: radial-gradient(1200px 800px at 80% -10%, #1b2030, var(--bg)); color: var(--text); }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .header { display:flex; gap:16px; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:42px; height:42px; border-radius:12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display:grid; place-items:center; color:#241c0a; font-weight:800; }
+    .title { font-size: 22px; letter-spacing: 0.5px; }
+
+    .actions { display:flex; gap:10px; flex-wrap: wrap; }
+    .input { background: #111318; color: var(--text); border:1px solid #232837; padding:10px 12px; border-radius:12px; outline: none; min-width: 220px; }
+    .btn { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#20190a; border:none; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow: 0 6px 16px rgba(212,175,55,0.25); }
+    .btn:hover { filter: brightness(1.05); }
+
+    .grid { display:grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap:16px; margin-top: 20px; }
+    @media (min-width:600px){ .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width:900px){ .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+    .card { background: linear-gradient(180deg, #1a1f2b, var(--card)); border: 1px solid #22293a; border-radius:20px; overflow:hidden; position:relative; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    .media { aspect-ratio: 4/3; background: radial-gradient(600px 300px at 80% 10%, #2a3146, #10131a); display:grid; place-items:center; position:relative; }
+    .ring { position:absolute; width: 54%; aspect-ratio:1/1; border-radius:50%; background: conic-gradient(from 20deg, #5c4a16, #be9b2e, #fff2a8, #be9b2e, #5c4a16); filter: blur(0.3px) saturate(1.1); transform: rotate(12deg); }
+    .ring::after { content:""; position:absolute; inset:12%; border-radius:50%; background: #10131a; }
+
+    .content { padding:14px 14px 16px; }
+    .name { font-weight:700; font-size: 16px; }
+    .meta { display:flex; justify-content:space-between; align-items:center; color: var(--muted); font-size: 14px; margin-top:6px; }
+    .price { color: var(--ring); font-weight:800; letter-spacing: 0.4px; }
+    .cta { display:flex; gap:10px; margin-top:12px; }
+    .btn-outline { background: transparent; color: var(--text); border:1px solid #2a3246; padding:10px 12px; border-radius:12px; font-weight:600; cursor: pointer; }
+    .btn-outline:hover { border-color:#3a4462; }
+
+    .footer { margin: 24px 0; color: var(--muted); font-size: 13px; display:flex; justify-content:space-between; gap:12px; flex-wrap: wrap; }
+    .pill { padding: 6px 10px; border: 1px solid #2a3246; border-radius:999px; }
+
+    .floating-wa { position: fixed; right: 18px; bottom: 18px; display:flex; gap:10px; align-items:center; background: #128C7E; color:#fff; padding: 12px 14px; border-radius: 999px; font-weight: 700; box-shadow: 0 16px 30px rgba(18,140,126,0.35); cursor: pointer; }
+
+    .note { background:#121722; border:1px dashed #2a3246; padding:12px 14px; border-radius: 12px; margin-top: 14px; color:var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">MK</div>
+        <div>
+          <div class="title">MKRK Jewellery</div>
+          <div style="color:var(--muted); font-size:12px;">Elegant • Authentic • Affordable</div>
+        </div>
+      </div>
+      <div class="actions">
+        <input id="search" class="input" placeholder="Search rings, bangles, chain…" />
+        <button class="btn" id="shareSite">Share Store</button>
+      </div>
+    </header>
+
+    <div class="note">⚙️ <b>Setup:</b> नीचे <code>WHATSAPP_NUMBER</code> में अपना नंबर बदलें (format: country code + number, e.g. <code>91XXXXXXXXXX</code>). "Book on WhatsApp" पर click करते ही product details के साथ WhatsApp chat खुल जाएगी.
+    </div>
+
+    <main class="grid" id="grid">
+      <!-- Product Card Template examples -->
+      <article class="card" data-name="Classic Gold Ring" data-sku="R-101" data-price="₹7,499">
+        <div class="media"><div class="ring"></div></div>
+        <div class="content">
+          <div class="name">Classic Gold Ring</div>
+          <div class="meta"><span>SKU: R-101</span><span class="price">₹7,499</span></div>
+          <div class="cta">
+            <button class="btn" data-book>Book on WhatsApp</button>
+            <button class="btn-outline" data-enquire>Enquire</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Stone-Studded Bangle" data-sku="B-205" data-price="₹12,999">
+        <div class="media"><div class="ring" style="width:60%; transform: rotate(-8deg);"></div></div>
+        <div class="content">
+          <div class="name">Stone-Studded Bangle</div>
+          <div class="meta"><span>SKU: B-205</span><span class="price">₹12,999</span></div>
+          <div class="cta">
+            <button class="btn" data-book>Book on WhatsApp</button>
+            <button class="btn-outline" data-enquire>Enquire</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Pearl Pendant" data-sku="P-302" data-price="₹4,499">
+        <div class="media"><div class="ring" style="width:46%;"></div></div>
+        <div class="content">
+          <div class="name">Pearl Pendant</div>
+          <div class="meta"><span>SKU: P-302</span><span class="price">₹4,499</span></div>
+          <div class="cta">
+            <button class="btn" data-book>Book on WhatsApp</button>
+            <button class="btn-outline" data-enquire>Enquire</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Men's Curb Chain" data-sku="C-118" data-price="₹9,799">
+        <div class="media"><div class="ring" style="width:52%;"></div></div>
+        <div class="content">
+          <div class="name">Men's Curb Chain</div>
+          <div class="meta"><span>SKU: C-118</span><span class="price">₹9,799</span></div>
+          <div class="cta">
+            <button class="btn" data-book>Book on WhatsApp</button>
+            <button class="btn-outline" data-enquire>Enquire</button>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="pill">Secure UPI • PAN India Shipping • Easy Returns*</div>
+      <div class="pill">© <span id="year"></span> MKRK Jewellery</div>
+    </footer>
+  </div>
+
+  <div class="floating-wa" id="waFloat">💬 WhatsApp Enquiry</div>
+
+  <script>
+    // 👉 CHANGE THIS TO YOUR NUMBER (country code + number, no plus sign)
+    const WHATSAPP_NUMBER = '917388713077';
+
+    // Search filter
+    const search = document.getElementById('search');
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const sku = card.dataset.sku.toLowerCase();
+        card.style.display = (name.includes(q) || sku.includes(q)) ? '' : 'none';
+      });
+    });
+
+    // WhatsApp booking helpers
+    function openWhatsApp(message){
+      const text = encodeURIComponent(message);
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    function buildMessageFromCard(card){
+      const name = card.dataset.name;
+      const sku = card.dataset.sku;
+      const price = card.dataset.price;
+      return (
+        `Hello MKRK Jewellery,%0A`+
+        `I want to book this item:%0A`+
+        `• Product: ${name}%0A`+
+        `• SKU: ${sku}%0A`+
+        `• Price: ${price}%0A`+
+        `Please share availability, delivery time and payment options.`
+      );
+    }
+
+    // Bind buttons on each card
+    cards.forEach(card => {
+      const bookBtn = card.querySelector('[data-book]');
+      const enqBtn = card.querySelector('[data-enquire]');
+      bookBtn.addEventListener('click', () => openWhatsApp(buildMessageFromCard(card)));
+      enqBtn.addEventListener('click', () => {
+        const msg = `Hello, I have an enquiry about ${card.dataset.name} (SKU ${card.dataset.sku}).`;
+        openWhatsApp(msg);
+      });
+    });
+
+    // Floating WhatsApp
+    document.getElementById('waFloat').addEventListener('click', () => {
+      openWhatsApp('Hello! I want to enquire about jewellery products.');
+    });
+
+    // Share site
+    document.getElementById('shareSite').addEventListener('click', async () => {
+      try {
+        await navigator.share({ title: document.title, url: location.href });
+      } catch(e){
+        navigator.clipboard.writeText(location.href);
+        alert('Link copied to clipboard!');
+      }
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
